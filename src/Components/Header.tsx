@@ -1,6 +1,12 @@
-import React from 'react';
-import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
-import FastImage from 'react-native-fast-image';
+import React from "react";
+import {
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import FastImage from "react-native-fast-image";
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
