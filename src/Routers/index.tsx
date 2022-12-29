@@ -17,10 +17,10 @@ import { setUserDetail } from "../Slices/UserSlice";
 const Stack = createNativeStackNavigator();
 
 const index = () => {
-  const [initializing, setInitializing] = useState<boolean>(true);
   const dispatch = useDispatch();
-  // const {userData} = useSelector((state: any) => state.users);
+  const [initializing, setInitializing] = useState<boolean>(true);
   const [user, setUser] = useState();
+  const [newUser, setNewUser] = useState(false);
 
   useEffect(() => {
     setTimeout(
@@ -51,7 +51,7 @@ const index = () => {
         barStyle={"dark-content"}
         translucent={false}
       />
-      {user ? (
+      {newUser ? (
         <Stack.Navigator
           screenOptions={{
             headerShown: false,
@@ -63,7 +63,7 @@ const index = () => {
       ) : (
         <Stack.Navigator
           screenOptions={{ headerShown: false }}
-          initialRouteName={user ? "Dashboard" : "Landing"}
+          initialRouteName={newUser ? "Dashboard" : "Landing"}
         >
           <Stack.Screen name="Landing" component={Landing} />
           <Stack.Screen name="SignIn" component={SignIn} />

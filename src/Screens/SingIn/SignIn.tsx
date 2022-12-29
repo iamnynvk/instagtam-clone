@@ -180,10 +180,10 @@ const SignIn = (props: any) => {
                 styles.hidePasswordIcon,
                 {
                   top: loginError?.passwordError
-                    ? hp(12.09)
+                    ? hp(13)
                     : loginError?.emailError
-                    ? hp(12.09)
-                    : hp(8.5),
+                    ? hp(13)
+                    : hp(9.8),
                 },
               ]}
               onPress={() => setHidePassword(!hidePassword)}>
@@ -356,7 +356,7 @@ const styles = StyleSheet.create({
   clearTextInput: {
     position: 'absolute',
     right: hp(2.2),
-    top: hp(0.6),
+    top: hp(1),
     alignItems: 'center',
     padding: 8,
   },

@@ -18,7 +18,7 @@ const TabNavigator = () => {
     <bottomTab.Navigator
       screenOptions={({ route }: any) => ({
         tabBarIcon: ({ focused, color, size }): any => {
-          let iconName: string | undefined;
+          let iconName: string;
           if (route?.name === "HomeNavigator") {
             iconName = focused ? "ios-home" : "ios-home-outline";
           } else if (route?.name === "SearchNavigator") {
