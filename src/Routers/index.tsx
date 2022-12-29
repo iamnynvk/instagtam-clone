@@ -1,18 +1,18 @@
-import React, {useEffect, useState} from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import auth from '@react-native-firebase/auth';
-import {COLORS} from '../Constants/theme';
-import {StatusBar} from 'react-native';
-import TabNavigator from './TabNavigator';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import Landing from '../Screens/Welcome/Landing';
-import SignIn from '../Screens/SingIn/SignIn';
-import SignUpStepOne from '../Screens/SignUp/SignUpStepOne';
-import SignUpStepTwo, {WelcomeToInsta} from '../Screens/SignUp/SignUpStepTwo';
-import CompleteSignUp from '../Screens/SignUp/CompleteProfile/CompleteSignUp';
-import SplashScreen from 'react-native-splash-screen';
-import {useDispatch, useSelector} from 'react-redux';
-import {setUserDetail} from '../Slices/UserSlice';
+import React, { useEffect, useState } from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import auth from "@react-native-firebase/auth";
+import { COLORS } from "../Constants/theme";
+import { StatusBar } from "react-native";
+import TabNavigator from "./TabNavigator";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Landing from "../Screens/Welcome/Landing";
+import SignIn from "../Screens/SingIn/SignIn";
+import SignUpStepOne from "../Screens/SignUp/SignUpStepOne";
+import SignUpStepTwo, { WelcomeToInsta } from "../Screens/SignUp/SignUpStepTwo";
+import CompleteSignUp from "../Screens/SignUp/CompleteProfile/CompleteSignUp";
+import SplashScreen from "react-native-splash-screen";
+import { useDispatch, useSelector } from "react-redux";
+import { setUserDetail } from "../Slices/UserSlice";
 
 const Stack = createNativeStackNavigator();
 
@@ -27,7 +27,7 @@ const index = () => {
       () => {
         SplashScreen.hide();
       },
-      user ? 50 : 100,
+      user ? 50 : 100
     );
   }, []);
 
@@ -48,18 +48,23 @@ const index = () => {
     <NavigationContainer>
       <StatusBar
         backgroundColor={COLORS.white}
-        barStyle={'dark-content'}
+        barStyle={"dark-content"}
         translucent={false}
       />
       {user ? (
         <Stack.Navigator
-          screenOptions={{headerShown: false, gestureEnabled: true}}>
+          screenOptions={{
+            headerShown: false,
+            gestureEnabled: true,
+          }}
+        >
           <Stack.Screen name="Dashboard" component={TabNavigator} />
         </Stack.Navigator>
       ) : (
         <Stack.Navigator
-          screenOptions={{headerShown: false}}
-          initialRouteName={user ? 'Dashboard' : 'Landing'}>
+          screenOptions={{ headerShown: false }}
+          initialRouteName={user ? "Dashboard" : "Landing"}
+        >
           <Stack.Screen name="Landing" component={Landing} />
           <Stack.Screen name="SignIn" component={SignIn} />
           <Stack.Screen name="SignUpStepOne" component={SignUpStepOne} />
