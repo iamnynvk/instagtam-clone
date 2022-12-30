@@ -20,7 +20,6 @@ const index = () => {
   const dispatch = useDispatch();
   const [initializing, setInitializing] = useState<boolean>(true);
   const [user, setUser] = useState();
-  const [newUser, setNewUser] = useState(false);
 
   useEffect(() => {
     setTimeout(
@@ -51,7 +50,7 @@ const index = () => {
         barStyle={"dark-content"}
         translucent={false}
       />
-      {newUser ? (
+      {user ? (
         <Stack.Navigator
           screenOptions={{
             headerShown: false,
@@ -63,7 +62,7 @@ const index = () => {
       ) : (
         <Stack.Navigator
           screenOptions={{ headerShown: false }}
-          initialRouteName={newUser ? "Dashboard" : "Landing"}
+          initialRouteName={user ? "Dashboard" : "Landing"}
         >
           <Stack.Screen name="Landing" component={Landing} />
           <Stack.Screen name="SignIn" component={SignIn} />

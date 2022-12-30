@@ -5,6 +5,7 @@ import { COLORS } from "../../Constants";
 // Components
 import Header from "../../Components/Header";
 import StoryManager from "../../Components/StoryManager";
+import PostManager from "../../Components/PostManager";
 
 const Home = (props: any) => {
   const HeaderNavigation = (screenName: string) => {
@@ -19,6 +20,7 @@ const Home = (props: any) => {
         showsVerticalScrollIndicator={false}
       >
         <StoryManager />
+        <PostManager />
       </ScrollView>
     </SafeAreaView>
   );

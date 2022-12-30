@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, { useEffect, useRef, useState } from "react";
 import {
   View,
   Text,
@@ -8,18 +8,18 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   Alert,
-} from 'react-native';
-import {COLORS, images} from '../../Constants';
+} from "react-native";
+import { COLORS, images } from "../../Constants";
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
-} from 'react-native-responsive-screen';
-import FastImage from 'react-native-fast-image';
-import InputText from '../../Components/InputText';
-import Icons from 'react-native-vector-icons/Ionicons';
-import {Validation} from '../../Hooks/InputValidation';
-import {signInWithEmailPassword} from '../../Utils/Firebase';
-import {storeData} from '../../Utils/Preferences';
+} from "react-native-responsive-screen";
+import FastImage from "react-native-fast-image";
+import InputText from "../../Components/InputText";
+import Icons from "react-native-vector-icons/Ionicons";
+import { Validation } from "../../Hooks/InputValidation";
+import { signInWithEmailPassword } from "../../Utils/Firebase";
+import { storeData } from "../../Utils/Preferences";
 
 interface ILoginInputs {
   emailValue: string;
@@ -30,12 +30,12 @@ const SignIn = (props: any) => {
   const emailUsernamePhoneRef = useRef();
   const passwordRef = useRef();
   const [loginInput, setLoginInput] = useState<ILoginInputs>({
-    emailValue: '',
-    passwordValue: '',
+    emailValue: "",
+    passwordValue: "",
   });
   const [loginError, setLoginError] = useState({
-    emailError: '',
-    passwordError: '',
+    emailError: "",
+    passwordError: "",
   });
   const [disable, setIsDisable] = useState<boolean>(true);
   const [hidePassword, setHidePassword] = useState<boolean>(true);
@@ -63,8 +63,8 @@ const SignIn = (props: any) => {
       setIsDisable(true);
       setLoginError({
         ...loginError,
-        emailError: '',
-        passwordError: '',
+        emailError: "",
+        passwordError: "",
       });
     }
   }, [loginInput?.emailValue, loginInput?.passwordValue]);
@@ -72,8 +72,8 @@ const SignIn = (props: any) => {
   // LoginHandler
   const loginHandler = async () => {
     setLoginError({
-      emailError: '',
-      passwordError: '',
+      emailError: "",
+      passwordError: "",
     });
 
     setLoading(true);
@@ -89,29 +89,29 @@ const SignIn = (props: any) => {
       try {
         const resultData: any = await signInWithEmailPassword(
           loginInput?.emailValue,
-          loginInput?.passwordValue,
+          loginInput?.passwordValue
         );
         if (resultData?.user) {
-          await storeData(resultData, 'userSignIn');
+          await storeData(resultData, "userSignIn");
           props?.navigation.reset({
             index: 0,
-            routes: [{name: 'Dashboard'}],
+            routes: [{ name: "Dashboard" }],
           });
         }
         setLoading(false);
       } catch (err: any) {
-        if (err?.code === 'auth/user-not-found') {
-          Alert.alert('Warning!', err.message.split('] ')[1], [
+        if (err?.code === "auth/user-not-found") {
+          Alert.alert("Warning!", err.message.split("] ")[1], [
             {
-              text: 'ok',
+              text: "ok",
               onPress: () => setLoading(false),
             },
           ]);
         }
-        if (err?.code === 'auth/wrong-password') {
-          Alert.alert('Warning!', err.message.split('] ')[1], [
+        if (err?.code === "auth/wrong-password") {
+          Alert.alert("Warning!", err.message.split("] ")[1], [
             {
-              text: 'ok',
+              text: "ok",
               onPress: () => setLoading(false),
             },
           ]);
@@ -123,13 +123,13 @@ const SignIn = (props: any) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false} style={{flex: 1}}>
+      <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
         {/* Image container */}
         <View style={styles.imageContainer}>
           <FastImage
             style={styles.imageStyles}
             source={images.logo}
-            resizeMode={'contain'}
+            resizeMode={"contain"}
           />
         </View>
 
@@ -153,9 +153,10 @@ const SignIn = (props: any) => {
               onPress={() =>
                 setLoginInput({
                   ...loginInput,
-                  emailValue: '',
+                  emailValue: "",
                 })
-              }>
+              }
+            >
               <Icons name="close-outline" color={COLORS.black} size={hp(2.8)} />
             </TouchableOpacity>
           )}
@@ -165,7 +166,7 @@ const SignIn = (props: any) => {
 
           <InputText
             refs={passwordRef}
-            textContainer={{marginTop: hp(2)}}
+            textContainer={{ marginTop: hp(2) }}
             placeHolderText="Password"
             isSecure={hidePassword}
             handleValues={(v: string) => handlePasswordValue(v)}
@@ -180,13 +181,14 @@ const SignIn = (props: any) => {
                 styles.hidePasswordIcon,
                 {
                   top: loginError?.passwordError
-                    ? hp(13)
+                    ? hp(12)
                     : loginError?.emailError
-                    ? hp(13)
-                    : hp(9.8),
+                    ? hp(12)
+                    : hp(8.8),
                 },
               ]}
-              onPress={() => setHidePassword(!hidePassword)}>
+              onPress={() => setHidePassword(!hidePassword)}
+            >
               {hidePassword ? (
                 <Icons name="eye-outline" color="#318bfb" size={hp(2.5)} />
               ) : (
@@ -214,7 +216,8 @@ const SignIn = (props: any) => {
           activeOpacity={0.7}
           disabled={disable || loading}
           onPress={loginHandler}
-          style={[styles.loginButtonContainer, {opacity: disable ? 0.5 : 1}]}>
+          style={[styles.loginButtonContainer, { opacity: disable ? 0.5 : 1 }]}
+        >
           {loading ? (
             <ActivityIndicator size="small" color={COLORS.white} />
           ) : (
@@ -227,16 +230,16 @@ const SignIn = (props: any) => {
           <View
             style={[
               styles.lineContainer,
-              {marginStart: hp(3), marginEnd: hp(2)},
+              { marginStart: hp(3), marginEnd: hp(2) },
             ]}
           />
           <View style={styles.orContent}>
-            <Text style={[styles.hidePassword, {color: '#919191'}]}>OR</Text>
+            <Text style={[styles.hidePassword, { color: "#919191" }]}>OR</Text>
           </View>
           <View
             style={[
               styles.lineContainer,
-              {marginEnd: hp(3), marginStart: hp(2)},
+              { marginEnd: hp(3), marginStart: hp(2) },
             ]}
           />
         </View>
@@ -244,8 +247,8 @@ const SignIn = (props: any) => {
         {/* Login with facebook */}
         <TouchableOpacity activeOpacity={0.7} style={styles.facebookContainer}>
           <Icons name="logo-facebook" size={hp(2.5)} color={COLORS.facebook} />
-          <Text style={[styles.forgotText, {color: COLORS.facebook}]}>
-            {'  '}Log In With Facebook
+          <Text style={[styles.forgotText, { color: COLORS.facebook }]}>
+            {"  "}Log In With Facebook
           </Text>
         </TouchableOpacity>
 
@@ -253,7 +256,8 @@ const SignIn = (props: any) => {
           <Text style={styles.notAccountText}>Don't have an account? </Text>
           <TouchableOpacity
             activeOpacity={0.7}
-            onPress={() => props?.navigation?.replace('SignUpStepOne')}>
+            onPress={() => props?.navigation?.replace("SignUpStepOne")}
+          >
             <Text style={styles.signUpText}>Sign Up</Text>
           </TouchableOpacity>
         </View>
@@ -272,28 +276,28 @@ const styles = StyleSheet.create({
   },
   imageStyles: {
     height: hp(8),
-    width: '100%',
+    width: "100%",
   },
   textInputContainer: {
     marginTop: hp(8),
   },
   forgotContainer: {
     marginTop: hp(1),
-    flexDirection: 'row',
+    flexDirection: "row",
     marginHorizontal: hp(2),
     padding: hp(0.5),
-    justifyContent: 'flex-end',
+    justifyContent: "flex-end",
   },
   hidePassword: {
-    fontFamily: 'Nunito-Medium',
+    fontFamily: "Nunito-Medium",
     fontSize: hp(1.8),
   },
   forgotTextContainer: {
-    alignSelf: 'center',
+    alignSelf: "center",
   },
   forgotText: {
     color: COLORS.facebook,
-    fontFamily: 'Nunito-Bold',
+    fontFamily: "Nunito-Bold",
     fontSize: hp(1.8),
   },
   loginButtonContainer: {
@@ -302,16 +306,16 @@ const styles = StyleSheet.create({
     marginHorizontal: hp(3),
     borderRadius: hp(1),
     backgroundColor: COLORS.facebook,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   buttonText: {
     color: COLORS.white,
     fontSize: hp(2),
-    fontFamily: 'Nunito-ExtraBold',
+    fontFamily: "Nunito-ExtraBold",
   },
   orContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginTop: hp(6),
     flex: 1,
   },
@@ -321,56 +325,56 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.gray,
     borderColor: COLORS.gray,
     height: 0,
-    alignSelf: 'center',
+    alignSelf: "center",
   },
   orContent: {
     flex: 0.5,
-    alignItems: 'center',
+    alignItems: "center",
   },
   facebookContainer: {
-    alignItems: 'center',
+    alignItems: "center",
     marginTop: hp(5),
-    flexDirection: 'row',
-    alignSelf: 'center',
+    flexDirection: "row",
+    alignSelf: "center",
   },
   bottomContainer: {
     borderTopWidth: 0.8,
-    width: '100%',
+    width: "100%",
     flex: 1,
     marginTop: hp(20),
     borderColor: COLORS.gray,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    alignContent: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    alignContent: "center",
     height: hp(6),
   },
   notAccountText: {
-    fontFamily: 'Nunito-Regular',
+    fontFamily: "Nunito-Regular",
     fontSize: hp(1.8),
   },
   signUpText: {
     color: COLORS.facebook,
-    fontFamily: 'Nunito-Bold',
+    fontFamily: "Nunito-Bold",
   },
   clearTextInput: {
-    position: 'absolute',
+    position: "absolute",
     right: hp(2.2),
     top: hp(1),
-    alignItems: 'center',
+    alignItems: "center",
     padding: 8,
   },
   hidePasswordIcon: {
-    position: 'absolute',
+    position: "absolute",
     right: hp(2.2),
-    alignItems: 'center',
+    alignItems: "center",
     padding: 12,
   },
   errorText: {
     marginHorizontal: hp(2.3),
     marginTop: hp(1),
     color: COLORS.RedOrange,
-    fontFamily: 'Nunito-Medium',
+    fontFamily: "Nunito-Medium",
     fontSize: hp(1.8),
   },
 });
