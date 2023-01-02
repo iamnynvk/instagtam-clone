@@ -1,6 +1,12 @@
 import { FlashList } from "@shopify/flash-list";
 import React from "react";
-import { SafeAreaView, StyleSheet, Text, View } from "react-native";
+import {
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import FastImage from "react-native-fast-image";
 import LinearGradient from "react-native-linear-gradient";
 import {
@@ -8,8 +14,10 @@ import {
   widthPercentageToDP as wp,
 } from "react-native-responsive-screen";
 import { COLORS } from "../Constants";
+import Icons from "react-native-vector-icons/MaterialCommunityIcons";
 
 const PostDetail = ({ postItem }: any) => {
+  console.log("postItem --->", postItem);
   return (
     <SafeAreaView style={styles.container}>
       {/* Post-Header Component */}
@@ -20,21 +28,42 @@ const PostDetail = ({ postItem }: any) => {
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 0 }}
             colors={["#e041d1", "#f79b08", "#dc2330"]}
-            style={styles.linearGradientStyle}
+            style={[styles.linearGradientStyle, {}]}
           >
-            <View style={styles.borderStyles}>
+            {postItem?.isStory ? (
+              <View style={styles.borderStyles}>
+                <FastImage
+                  source={{
+                    uri: postItem?.userImageUrl,
+                  }}
+                  resizeMode={"cover"}
+                  style={{ height: hp(4), width: hp(4), borderRadius: hp(2) }}
+                />
+              </View>
+            ) : (
               <FastImage
                 source={{
-                  uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUKuYwI7He6acEy8vkX41An6XRau7QGJJ4Hw&usqp=CAU",
+                  uri: postItem?.userImageUrl,
                 }}
                 resizeMode={"cover"}
-                style={styles.imageStyles}
+                style={{
+                  height: hp(4.5),
+                  width: hp(4.5),
+                  borderRadius: hp(2.25),
+                }}
               />
-            </View>
+            )}
           </LinearGradient>
         </View>
-        <View></View>
-        <View></View>
+        <View style={styles.contentContainer}>
+          <Text style={styles.userNameText}>{postItem?.userName}</Text>
+          <Text style={styles.functionalityText}>{postItem?.location}</Text>
+        </View>
+        <View style={styles.photoMenuContainer}>
+          <TouchableOpacity activeOpacity={0.5}>
+            <Icons name="dots-vertical" size={hp(2.8)} color={COLORS.black} />
+          </TouchableOpacity>
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -52,11 +81,6 @@ const styles = StyleSheet.create({
     borderColor: COLORS.border,
     padding: hp(1),
   },
-  imageStyles: {
-    height: hp(5),
-    width: hp(5),
-    borderRadius: hp(2.5),
-  },
   borderStyles: {
     borderColor: "#fff",
     borderWidth: 4,
@@ -72,6 +96,26 @@ const styles = StyleSheet.create({
     height: hp(4.5),
     justifyContent: "center",
     alignItems: "center",
+  },
+  contentContainer: {
+    marginStart: hp(1),
+    flex: 1,
+  },
+  photoMenuContainer: {
+    flex: 0.1,
+    justifyContent: "center",
+  },
+  userNameText: {
+    fontFamily: "Nunito-Bold",
+    fontSize: hp(1.8),
+    padding: 0,
+    margin: 0,
+  },
+  functionalityText: {
+    padding: 0,
+    margin: 0,
+    fontFamily: "Nunito-Medium",
+    fontSize: hp(1.5),
   },
 });
 
