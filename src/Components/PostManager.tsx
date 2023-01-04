@@ -1,7 +1,13 @@
 import React from "react";
 import { FlashList } from "@shopify/flash-list";
-import { SafeAreaView, StyleSheet } from "react-native";
+import { SafeAreaView, StyleSheet, View } from "react-native";
 import PostDetail from "./PostDetail";
+import { ActivityIndicator } from "react-native-paper";
+import { COLORS } from "../Constants";
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from "react-native-responsive-screen";
 
 const POST_DATA = [
   {
@@ -70,13 +76,21 @@ const POST_DATA = [
 const PostManager = () => {
   return (
     <SafeAreaView style={styles.container}>
-      <FlashList
-        data={POST_DATA}
-        showsVerticalScrollIndicator={false}
-        renderItem={({ item }) => <PostDetail postItem={item} />}
-        estimatedItemSize={100}
-        keyExtractor={(item, index: any) => index}
-      />
+      {!POST_DATA ? (
+        <FlashList
+          data={POST_DATA}
+          showsVerticalScrollIndicator={false}
+          renderItem={({ item }) => <PostDetail postItem={item} />}
+          estimatedItemSize={100}
+          keyExtractor={(item, index: any) => index}
+        />
+      ) : (
+        <ActivityIndicator
+          size={"small"}
+          color={COLORS.black}
+          style={{ padding: hp(10) }}
+        />
+      )}
     </SafeAreaView>
   );
 };

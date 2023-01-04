@@ -6,7 +6,6 @@ import {
   SafeAreaView,
   ScrollView,
   TouchableOpacity,
-  ActivityIndicator,
   Alert,
 } from "react-native";
 import { COLORS, images } from "../../Constants";
@@ -17,6 +16,7 @@ import {
 import FastImage from "react-native-fast-image";
 import InputText from "../../Components/InputText";
 import Icons from "react-native-vector-icons/Ionicons";
+import { ActivityIndicator } from "react-native-paper";
 import { Validation } from "../../Hooks/InputValidation";
 import { signInWithEmailPassword } from "../../Utils/Firebase";
 import { storeData } from "../../Utils/Preferences";

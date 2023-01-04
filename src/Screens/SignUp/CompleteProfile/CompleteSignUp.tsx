@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
-  ActivityIndicator,
   Alert,
   SafeAreaView,
   StyleSheet,
@@ -10,6 +9,7 @@ import {
   View,
 } from "react-native";
 import { COLORS } from "../../../Constants";
+import { ActivityIndicator } from "react-native-paper";
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
