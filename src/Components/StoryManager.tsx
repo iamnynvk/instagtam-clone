@@ -1,6 +1,6 @@
 import { FlashList } from "@shopify/flash-list";
 import React from "react";
-import { SafeAreaView, StyleSheet } from "react-native";
+import { SafeAreaView, StyleSheet, Dimensions } from "react-native";
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
@@ -129,8 +129,8 @@ const StoryManager = () => {
 
 const styles = StyleSheet.create({
   storyManagerContainer: {
-    flex: 1,
     height: hp(15),
+    width: Dimensions.get("screen").width,
   },
 });
 

@@ -1,6 +1,7 @@
 import React from "react";
 import { FlashList } from "@shopify/flash-list";
-import { SafeAreaView, StyleSheet, View } from "react-native";
+import { Dimensions, SafeAreaView, StyleSheet, View } from "react-native";
+import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import PostDetail from "./PostDetail";
 import { ActivityIndicator } from "react-native-paper";
 import { COLORS } from "../Constants";
@@ -74,9 +75,10 @@ const POST_DATA = [
 ];
 
 const PostManager = () => {
+  const tabBarHeight = useBottomTabBarHeight();
   return (
     <SafeAreaView style={styles.container}>
-      {!POST_DATA ? (
+      {POST_DATA ? (
         <FlashList
           data={POST_DATA}
           showsVerticalScrollIndicator={false}
@@ -97,7 +99,7 @@ const PostManager = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    width: Dimensions.get("screen").width,
   },
 });
 
