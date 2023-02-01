@@ -14,10 +14,13 @@ const HomeNavigator = () => {
       initialRouteName="Home"
       backBehavior="initialRoute"
       focusable={true}
+      hitSlop={{ top: 0, bottom: 0, left: -10, right: -10 }}
       screenOptions={{
         tabBarStyle: {
           display: "none",
         },
+        animationEnabled: true,
+        tabBarBounces: true,
       }}
     >
       <topTab.Screen name="Story" component={Story} />

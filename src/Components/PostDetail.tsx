@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   SafeAreaView,
   StyleSheet,
@@ -6,6 +6,8 @@ import {
   TouchableOpacity,
   View,
   Dimensions,
+  ScrollView,
+  PanResponder,
 } from "react-native";
 import FastImage from "react-native-fast-image";
 import LinearGradient from "react-native-linear-gradient";
@@ -16,10 +18,8 @@ import {
 import { COLORS } from "../Constants";
 import Icons from "react-native-vector-icons/MaterialCommunityIcons";
 import Video from "react-native-video";
-import { FlashList } from "@shopify/flash-list";
 
 const PostDetail = ({ postItem }: any) => {
-  console.log("postItem --->", postItem?.media);
   return (
     <SafeAreaView style={styles.container}>
       {/* Post-Header Container */}
@@ -31,7 +31,11 @@ const PostDetail = ({ postItem }: any) => {
             <LinearGradient
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
-              colors={["#e041d1", "#f79b08", "#dc2330"]}
+              colors={
+                postItem?.userImageUrl
+                  ? ["#e041d1", "#f79b08", "#dc2330"]
+                  : ["#fff", "#fff", "#fff"]
+              }
               style={[
                 styles.linearGradientStyle,
                 {
@@ -54,7 +58,9 @@ const PostDetail = ({ postItem }: any) => {
               ) : (
                 <FastImage
                   source={{
-                    uri: postItem?.userImageUrl,
+                    uri:
+                      postItem?.userImageUrl ||
+                      "https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg?20200418092106",
                   }}
                   resizeMode={"cover"}
                   style={{
@@ -67,17 +73,23 @@ const PostDetail = ({ postItem }: any) => {
             </LinearGradient>
           </TouchableOpacity>
         </View>
+
         <View style={styles.contentContainer}>
           {/* Navigate to other profile */}
           <TouchableOpacity activeOpacity={0.5}>
-            <Text style={styles.userNameText}>{postItem?.userName}</Text>
+            <Text style={styles.userNameText}>
+              {postItem?.userName || "Instagram User"}
+            </Text>
           </TouchableOpacity>
 
           {/* Navigate to location panel */}
           <TouchableOpacity activeOpacity={0.5}>
-            <Text style={styles.functionalityText}>{postItem?.location}</Text>
+            <Text style={styles.functionalityText}>
+              {postItem?.location || "Location"}
+            </Text>
           </TouchableOpacity>
         </View>
+
         <View style={styles.photoMenuContainer}>
           <TouchableOpacity activeOpacity={0.5}>
             <Icons name="dots-vertical" size={hp(2.8)} color={COLORS.black} />
@@ -86,10 +98,15 @@ const PostDetail = ({ postItem }: any) => {
       </View>
 
       {/* Post Photo&Video Container */}
-      <View style={styles.postContainer}>
+      <ScrollView
+        horizontal
+        style={styles.postContainer}
+        scrollEnabled
+        pagingEnabled
+      >
         {postItem?.media?.map((item: any, index: any) => {
           return (
-            <View key={index}>
+            <View key={index} style={styles.imageStyles}>
               {item?.type === "photo" ? (
                 <FastImage
                   source={{ uri: item?.imageUrl }}
@@ -99,13 +116,15 @@ const PostDetail = ({ postItem }: any) => {
               ) : (
                 <Video
                   source={{ uri: item?.imageUrl }}
-                  style={{ height: hp(60), width: "100%" }}
+                  style={styles.videoStyles}
+                  playInBackground={false}
+                  playWhenInactive={false}
                 />
               )}
             </View>
           );
         })}
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -161,26 +180,13 @@ const styles = StyleSheet.create({
     height: hp(60),
     width: "100%",
   },
+  imageStyles: {
+    width: Dimensions.get("screen").width,
+    height: "100%",
+  },
+  videoStyles: {
+    height: hp(60),
+  },
 });
 
 export default PostDetail;
-
-// Using FlashList
-{
-  /* <FlashList
-          data={postItem?.media}
-          keyExtractor={(item: any, index: any) => index}
-          estimatedItemSize={10}
-          showsVerticalScrollIndicator={false}
-          renderItem={({ item }) => {
-            return (
-              <View>
-                <FastImage
-                  source={{ uri: item?.imageUrl }}
-                  resizeMode={"contain"}
-                  style={styles.postPhotoContainer}
-                />
-              </View>
-            );
-          }} /> */
-}

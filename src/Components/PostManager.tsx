@@ -41,41 +41,40 @@ const POST_DATA = [
     music: [],
     isSave: false,
   },
-  {
-    isVerify: false,
-    isStory: false,
-    userName: "naayanvekariya",
-    userImageUrl:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUKuYwI7He6acEy8vkX41An6XRau7QGJJ4Hw&usqp=CAU",
-    location: "Surat, gujarat",
-    share: "sharing link gen",
-    hide: false,
-    media: [
-      {
-        type: "video",
-        imageUrl:
-          "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-        mention: ["@nayan"],
-      },
-      {
-        type: "photo",
-        imageUrl:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUKuYwI7He6acEy8vkX41An6XRau7QGJJ4Hw&usqp=CAU",
-        mention: ["@nayan"],
-      },
-    ],
-    likeCount: 230,
-    description: "Hello",
+  // {
+  //   isVerify: false,
+  //   isStory: false,
+  //   userName: "naayanvekariya",
+  //   userImageUrl:
+  //     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUKuYwI7He6acEy8vkX41An6XRau7QGJJ4Hw&usqp=CAU",
+  //   location: "Surat, gujarat",
+  //   share: "sharing link gen",
+  //   hide: false,
+  //   media: [
+  //     {
+  //       type: "video",
+  //       imageUrl:
+  //         "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+  //       mention: ["@nayan"],
+  //     },
+  //     {
+  //       type: "photo",
+  //       imageUrl:
+  //         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUKuYwI7He6acEy8vkX41An6XRau7QGJJ4Hw&usqp=CAU",
+  //       mention: ["@nayan"],
+  //     },
+  //   ],
+  //   likeCount: 230,
+  //   description: "Hello",
 
-    hashtags: ["#hello"],
-    sponsered: false,
-    music: [],
-    isSave: false,
-  },
+  //   hashtags: ["#hello"],
+  //   sponsered: false,
+  //   music: [],
+  //   isSave: false,
+  // },
 ];
 
 const PostManager = () => {
-  const tabBarHeight = useBottomTabBarHeight();
   return (
     <SafeAreaView style={styles.container}>
       {POST_DATA ? (
