@@ -14,6 +14,7 @@ import {
 import { Button, Menu, Divider, Provider } from "react-native-paper";
 import Icons from "react-native-vector-icons/Ionicons";
 import IconsAnt from "react-native-vector-icons/AntDesign";
+import IconsFontAwesome from "react-native-vector-icons/FontAwesome5";
 import { COLORS, images } from "../Constants";
 
 interface IHeaderProps {
@@ -129,8 +130,8 @@ const Header = ({ from, headNavigation }: IHeaderProps) => {
                 },
               ]}
             >
-              <Icons
-                name="ios-paper-plane-outline"
+              <IconsFontAwesome
+                name="facebook-messenger"
                 color={COLORS.black}
                 size={hp(3.5)}
               />

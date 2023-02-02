@@ -41,47 +41,49 @@ const POST_DATA = [
     music: [],
     isSave: false,
   },
-  // {
-  //   isVerify: false,
-  //   isStory: false,
-  //   userName: "naayanvekariya",
-  //   userImageUrl:
-  //     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUKuYwI7He6acEy8vkX41An6XRau7QGJJ4Hw&usqp=CAU",
-  //   location: "Surat, gujarat",
-  //   share: "sharing link gen",
-  //   hide: false,
-  //   media: [
-  //     {
-  //       type: "video",
-  //       imageUrl:
-  //         "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-  //       mention: ["@nayan"],
-  //     },
-  //     {
-  //       type: "photo",
-  //       imageUrl:
-  //         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUKuYwI7He6acEy8vkX41An6XRau7QGJJ4Hw&usqp=CAU",
-  //       mention: ["@nayan"],
-  //     },
-  //   ],
-  //   likeCount: 230,
-  //   description: "Hello",
-
-  //   hashtags: ["#hello"],
-  //   sponsered: false,
-  //   music: [],
-  //   isSave: false,
-  // },
+  {
+    isVerify: false,
+    isStory: false,
+    userName: "naayanvekariya",
+    userImageUrl:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUKuYwI7He6acEy8vkX41An6XRau7QGJJ4Hw&usqp=CAU",
+    location: "Surat, gujarat",
+    share: "sharing link gen",
+    hide: false,
+    media: [
+      {
+        type: "photo",
+        imageUrl:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUKuYwI7He6acEy8vkX41An6XRau7QGJJ4Hw&usqp=CAU",
+        mention: ["@nayan"],
+      },
+    ],
+    likeCount: 230,
+    description: "Hello",
+    hashtags: ["#hello"],
+    sponsered: false,
+    music: [],
+    isSave: false,
+  },
 ];
 
 const PostManager = () => {
+  const likedPost = (likeData: any) => {
+    console.log("Liked Data from Post manager =====>", likeData);
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       {POST_DATA ? (
         <FlashList
           data={POST_DATA}
           showsVerticalScrollIndicator={false}
-          renderItem={({ item }) => <PostDetail postItem={item} />}
+          renderItem={({ item }) => (
+            <PostDetail
+              postItem={item}
+              likeUserPost={(likeData: any) => likedPost(likeData)}
+            />
+          )}
           estimatedItemSize={100}
           keyExtractor={(item, index: any) => index}
         />
@@ -99,6 +101,7 @@ const PostManager = () => {
 const styles = StyleSheet.create({
   container: {
     width: Dimensions.get("screen").width,
+    height: "100%",
   },
 });
 
